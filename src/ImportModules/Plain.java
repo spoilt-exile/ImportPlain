@@ -153,7 +153,9 @@ public class Plain extends Import.Importer {
          * Move parser stack forward;
          */
         private void MoveForward() {
-            curr_char = curr_mask.charAt(++curr_position);
+            if (curr_position < curr_mask.length() - 1) {
+                curr_char = curr_mask.charAt(++curr_position);
+            }
             if (curr_position == curr_mask.length() - 1) {
                 next_char = '\0';
             } else {
