@@ -25,11 +25,8 @@ import Utils.IOControl;
  * Plain import class.
  * @author Stanislav Nepochatov <spoilt.exile@gmail.com>
  */
+@Utils.RibbonIOModule(type="PLAIN", property="IMPORT_PLAIN", api_version=1)
 public class Plain extends Import.Importer {
-    
-    public static String type = "PLAIN";
-    
-    public static String propertyType = "IMPORT_PLAIN";
     
     private java.util.ArrayList<String> banned = new java.util.ArrayList();
     
@@ -41,7 +38,7 @@ public class Plain extends Import.Importer {
     protected void resetState() {
         this.banned = new java.util.ArrayList<>();
         this.dirtyStatus = false;
-        IOControl.serverWrapper.disableDirtyState(type, importerName, importerPrint);
+        IOControl.serverWrapper.disableDirtyState("PLAIN", importerName, importerPrint);
     }
 
     @Override
@@ -173,7 +170,7 @@ public class Plain extends Import.Importer {
         if (files == null) {
             IOControl.serverWrapper.log(IOControl.IMPORT_LOGID + ":" + importerName, 1, "невожливо отримати доступ до теки імпорту: " + currConfig.getProperty("plain_path"));
             this.dirtyStatus = true;
-            IOControl.serverWrapper.enableDirtyState(type, importerName, importerPrint);
+            IOControl.serverWrapper.enableDirtyState("PLAIN", importerName, importerPrint);
             //Exit function to prevent NullPointerException.
             return;
         }
@@ -193,7 +190,7 @@ public class Plain extends Import.Importer {
                 MessageClasses.Message plainMessage = new MessageClasses.Message(
                         currFile.getName(), "root", "UKN", new String[] {currConfig.getProperty("plain_dir")}, new String[] {"тест"}, 
                         fileContent);
-                plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty(propertyType, "root", this.importerPrint, IOControl.serverWrapper.getDate()));
+                plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("IMPORT_PLAIN", "root", this.importerPrint, IOControl.serverWrapper.getDate()));
                 if (this.currConfig.containsKey("plain_copyright_override")) {
                     plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("COPYRIGHT", "root", currConfig.getProperty("plain_copyright_override"), IOControl.serverWrapper.getDate()));
                 }
@@ -209,7 +206,7 @@ public class Plain extends Import.Importer {
                     //Add file path to banned list and switch dirty state.
                     this.banned.add(currFile.getAbsolutePath());
                     this.dirtyStatus = true;
-                    IOControl.serverWrapper.enableDirtyState(type, importerName, importerPrint);
+                    IOControl.serverWrapper.enableDirtyState("PLAIN", importerName, importerPrint);
                 //Or if file cann't be open/read.
                 } else {
                     IOControl.serverWrapper.log(IOControl.IMPORT_LOGID + ":" + importerName, 1, "невожливо открити файл " + currFile.getAbsolutePath());
