@@ -190,9 +190,9 @@ public class Plain extends Import.Importer {
                 MessageClasses.Message plainMessage = new MessageClasses.Message(
                         currFile.getName(), "root", "UKN", new String[] {currConfig.getProperty("plain_dir")}, new String[] {"тест"}, 
                         fileContent);
-                plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("IMPORT_PLAIN", "root", this.importerPrint, IOControl.serverWrapper.getDate()));
+                plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("IMPORT_PLAIN", "root", this.importerPrint));
                 if (this.currConfig.containsKey("plain_copyright_override")) {
-                    plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("COPYRIGHT", "root", currConfig.getProperty("plain_copyright_override"), IOControl.serverWrapper.getDate()));
+                    plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("COPYRIGHT", "root", currConfig.getProperty("plain_copyright_override")));
                 }
                 IOControl.serverWrapper.addMessage(plainMessage);
                 //Log this event if such behavior specified by config.
