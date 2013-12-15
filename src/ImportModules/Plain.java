@@ -194,7 +194,7 @@ public class Plain extends Import.Importer {
                 if (this.currConfig.containsKey("plain_copyright_override")) {
                     plainMessage.PROPERTIES.add(new MessageClasses.MessageProperty("COPYRIGHT", "root", currConfig.getProperty("plain_copyright_override")));
                 }
-                IOControl.serverWrapper.addMessage(plainMessage);
+                IOControl.serverWrapper.addMessage(this.importerName, "PLAIN", plainMessage);
                 //Log this event if such behavior specified by config.
                 if ("1".equals(currConfig.getProperty("opt_log"))) {
                     IOControl.serverWrapper.log(IOControl.IMPORT_LOGID + ":" + importerName, 3, "прозведено імпорт файлу " + currFile.getAbsolutePath());
